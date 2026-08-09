@@ -51,14 +51,31 @@ button {
 button:hover {
     background-color: darkblue;
 }
+.success {
+    color: green;
+    background: lightgreen;
+    padding: 10px;
+}
+
+.error {
+    color: red;
+    background: pink;
+    padding: 10px;
+}
     </style>
 </head>
 <body>
     
 
     <h1>Contact Us</h1>
+    {% if messages %}
+    {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    
 
-    <form method="POST">
+    <form method="POST" novalidate>
         {% csrf_token %}
 
         {{ form.as_p }}

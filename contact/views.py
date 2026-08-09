@@ -1,7 +1,7 @@
 from django.shortcuts import render
+from django.contrib import messages
 from .form import ContactForm
 from .models import ContactMessage
-
 
 def contact(request):
     if request.method == "POST":
@@ -14,7 +14,11 @@ def contact(request):
                 message=form.cleaned_data['message']
             )
 
-            return render(request, 'contact/success.html')
+            messages.success(request, "Your message was sent successfully!")
+            return render(request, 'contact/contact.html', {'form': ContactForm()})
+
+        else:
+            messages.error(request, "Please correct the errors below.")
 
     else:
         form = ContactForm()
